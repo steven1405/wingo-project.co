@@ -1,157 +1,474 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Wingo Practice Demo</title>
-<style>
-:root{
- --bg:#0f1220; --card:#171a2b; --muted:#9aa3b2; --text:#e9eef5;
- --accent:#6ea8fe; --red:#e74c3c; --green:#2ecc71; --violet:#8e44ad;
- --good:#22c55e; --bad:#ef4444;
-}
-body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
-.wrap{max-width:1100px;margin:auto;padding:20px}
-header{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
-h1{font-size:22px;margin:0}
-.card{background:var(--card);padding:16px;border-radius:12px;margin-bottom:18px}
-.stat{display:flex;gap:10px;flex-wrap:wrap}
-.stat .item{padding:8px 12px;border-radius:8px;background:#12162a;border:1px solid #262b44}
-.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-button{border:0;border-radius:8px;padding:8px 14px;font-weight:600;cursor:pointer}
-.btn{background:var(--accent);color:#0b1022}
-.btn:disabled{opacity:.5}
-.cbtn{padding:10px 14px;font-weight:bold;color:#fff}
-.c-red{background:var(--red)}
-.c-green{background:var(--green)}
-.c-violet{background:var(--violet)}
-.option{background:#0f1326;border:1px solid #2a2f52;border-radius:8px;padding:10px 14px;cursor:pointer}
-.option.active{outline:2px solid var(--accent)}
-.nums{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;margin-top:8px}
-.num{background:#0f1326;color:var(--text);border:1px solid #2a2f52;border-radius:8px;padding:10px 0;font-weight:700;cursor:pointer}
-.num.active{outline:2px solid var(--accent)}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{padding:8px;border-bottom:1px solid #2a2f52;text-align:left}
-th{color:var(--muted)}
-.good{color:var(--good)} .bad{color:var(--bad)}
-.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
-.dot.red{background:var(--red)} .dot.green{background:var(--green)} .dot.violet{background:var(--violet)}
-.notice{padding:10px;text-align:center;font-size:13px;color:#ffd166;margin-top:12px;border:1px solid #3c3750;border-radius:8px;background:#1e1a2e}
-footer{text-align:center;color:#7f89a8;font-size:12px;margin-top:14px}
-#big{
-    background-color: darkgoldenrod;
-}
-#small{
-    background-color: darkcyan;
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wingo Practice Demo</title>
+  <style>
+    :root {
+      --bg: #0f1220;
+      --card: #171a2b;
+      --muted: #9aa3b2;
+      --text: #e9eef5;
+      --accent: #6ea8fe;
+      --red: #e74c3c;
+      --green: #2ecc71;
+      --violet: #8e44ad;
+      --good: #22c55e;
+      --bad: #ef4444;
+    }
+
+    body {
+      margin: 0;
+      font-family: Segoe UI, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0;
+      text-align: justify;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .card>label {
+      display: block;
+      margin-bottom: 8px;
+      margin-top: 8px;
+    }
+
+    .stat {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .stat .item {
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #12162a;
+      border: 1px solid #262b44
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .btn {
+      background: var(--accent);
+      color: #0b1022
+    }
+
+    .btn:disabled {
+      opacity: .5
+    }
+
+    .cbtn {
+      padding: 10px 14px;
+      font-weight: bold;
+      color: #fff
+    }
+
+    .c-red {
+      background: var(--red)
+    }
+
+    .c-green {
+      background: var(--green)
+    }
+
+    .c-violet {
+      background: var(--violet)
+    }
+
+    .option {
+      background: #0f1326;
+      border: 1px solid #2a2f52;
+      color: var(--text);
+      line-height: 1.4;
+      width: 120px;
+    }
+
+    .option.active {
+      outline: 2px solid var(--accent)
+    }
+
+    .option.big-small {
+      color: white;
+      padding: 10px 20px;
+    }
+
+    .option.big-small.big {
+      background-color: darkgoldenrod;
+    }
+
+    .option.big-small.small {
+      background-color: darkcyan;
+    }
+
+    .option.big-small:hover {
+      opacity: 0.9;
+      border-color: var(--accent);
+    }
+
+    .nums {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+      margin-top: 8px
+    }
+
+    .num {
+      background: #0f1326;
+      color: var(--text);
+      border: 1px solid #2a2f52;
+      border-radius: 8px;
+      padding: 10px 0;
+      font-weight: 700;
+      cursor: pointer
+    }
+
+    .num.active {
+      outline: 2px solid var(--accent)
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px
+    }
+
+    th,
+    td {
+      padding: 8px;
+      border-bottom: 1px solid #2a2f52;
+      text-align: left
+    }
+
+    th {
+      color: var(--muted)
+    }
+
+    .good {
+      color: var(--good)
+    }
+
+    .bad {
+      color: var(--bad)
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block
+    }
+
+    .dot.red {
+      background: var(--red)
+    }
+
+    .dot.green {
+      background: var(--green)
+    }
+
+    .dot.violet {
+      background: var(--violet)
+    }
+
+    .notice {
+      padding: 10px;
+      text-align: center;
+      font-size: 13px;
+      color: #ffd166;
+      margin-top: 12px;
+      border: 1px solid #3c3750;
+      border-radius: 8px;
+      background: #1e1a2e
+    }
+
+    footer {
+      text-align: center;
+      color: #7f89a8;
+      font-size: 12px;
+      margin-top: 14px
+    }
+  </style>
 </head>
+
 <body>
-<div class="wrap">
-<header>
-  <h1>🎲 Wingo Practice Demo</h1>
-  <div class="stat">
-    <div class="item">Round: <b id="roundId">—</b></div>
-    <div class="item">Time Left: <b id="timeLeft">—</b></div>
-    <div class="item">Balance: <b id="balance">1000</b></div>
-    <div class="item">Status: <b id="status">—</b></div>
+  <div class="wrap">
+    <header>
+      <h1>🎲 Wingo Practice Demo</h1>
+      <div class="stat">
+        <div class="item">Round: <b id="roundId">—</b></div>
+        <div class="item">Time Left: <b id="timeLeft">—</b></div>
+        <div class="item">Balance: <b id="balance">1000</b></div>
+        <div class="item">Status: <b id="status">—</b></div>
+      </div>
+    </header>
+
+    <div class="card">
+      <div class="row">
+        <label for="betAmt">Bet Amount</label><input id="betAmt" type="number" min="1" value="10" />
+        <button id="placeBet" class="btn">Place Bet</button>
+      </div>
+      <hr>
+      <label>Pick Color</label>
+      <button class="cbtn c-red" data-color="RED">RED ×2</button>
+      <button class="cbtn c-green" data-color="GREEN">GREEN ×2</button>
+      <button class="cbtn c-violet" data-color="VIOLET">VIOLET ×4</button>
+      <hr>
+      <label>Pick Number (0–9) ×9</label>
+      <div class="nums" id="numGrid"></div>
+      <hr>
+      <label>Pick Big / Small</label>
+      <button class="option big-small big" data-bs="BIG">BIG<br>(5–9) ×2</button>
+      <button class="option big-small small" data-bs="SMALL">SMALL<br>(0–4) ×2</button>
+    </div>
+
+    <div class="card">
+      <h3>History (Last 10)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Round</th>
+            <th>Color</th>
+            <th>Num</th>
+            <th>B/S</th>
+            <th>P/L</th>
+          </tr>
+        </thead>
+        <tbody id="histBody"></tbody>
+      </table>
+    </div>
+
+    <div class="notice">
+      ⚠️ This is NOT a real game — made only for practice / student design.<br>
+      Designed by <b>Sadulwar Sai</b>
+    </div>
+
+    <footer>For learning/demo only. RNG uses Crypto API.</footer>
   </div>
-</header>
 
-<div class="card">
-  <div class="row">
-    <label>Bet Amount</label><input id="betAmt" type="number" min="1" value="10"/>
-    <button id="placeBet" class="btn">Place Bet</button>
-  </div>
-  <hr>
-  <label>Pick Color</label><br>
-  <button class="cbtn c-red" data-color="RED">RED ×2</button>
-  <button class="cbtn c-green" data-color="GREEN">GREEN ×2</button>
-  <button class="cbtn c-violet" data-color="VIOLET">VIOLET ×4</button>
-  <hr>
-  <label>Pick Number (0–9) ×9</label>
-  <div class="nums" id="numGrid"></div>
-  <hr>
-  <label>Pick Big / Small</label><br>
-  <button class="option" id="big" data-bs="BIG">BIG (5–9) ×2</button>
-  <button class="option" id="small" data-bs="SMALL">SMALL (0–4) ×2</button>
-</div>
+  <script>
+    // --- HELPERS & STATE ---
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
 
-<div class="card">
-  <h3>History (Last 10)</h3>
-  <table><thead><tr><th>Round</th><th>Color</th><th>Num</th><th>B/S</th><th>P/L</th></tr></thead><tbody id="histBody"></tbody></table>
-</div>
+    let state = {
+      bal: 1000,
+      round: 0,
+      end: 0,
+      len: 30, // round length in seconds
+      bets: [],
+      hist: []
+    };
+    let currentSelection = null;
 
-<div class="notice">
-  ⚠️ This is NOT a real game — made only for practice / student design.<br>
-  Designed by <b>Sadulwar Sai</b>
-</div>
+    // --- DOM ELEMENTS ---
+    const balanceEl = $("#balance");
+    const roundEl = $("#roundId");
+    const timeEl = $("#timeLeft");
+    const statusEl = $("#status");
+    const histBody = $("#histBody");
+    const numGrid = $("#numGrid");
+    const placeBetBtn = $("#placeBet");
+    const betAmtInput = $("#betAmt");
 
-<footer>For learning/demo only. RNG uses Crypto API.</footer>
-</div>
+    // --- SOUNDS ---
+    const winSound = new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg");
+    const loseSound = new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
+    const tickSound = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
 
-<script>
-// elements
-const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
-let state={bal:1000,round:0,end:0,len:30,bets:[],hist:[]};
-const balanceEl=$("#balance"), roundEl=$("#roundId"), timeEl=$("#timeLeft"), statusEl=$("#status"), histBody=$("#histBody");
-// sounds
-const winSound=new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg");
-const loseSound=new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
-const tickSound=new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
-function rng(max){let a=new Uint32Array(1);crypto.getRandomValues(a);return Math.floor(a[0]/4294967296*max)}
-function colorOf(n){if(n===0||n===5)return"VIOLET";return [1,3,7,9].includes(n)?"RED":"GREEN"}
-function bsOf(n){return n>=5?"BIG":"SMALL"}
-function payout(b,res){
-  if(b.type==="COLOR"&&b.pick===res.c) return b.amt*(b.pick==="VIOLET"?4:2);
-  if(b.type==="NUM"&&+b.pick===res.n) return b.amt*9;
-  if(b.type==="BS"&&b.pick===res.bs) return b.amt*2;
-  return 0;
-}
-function renderHist(){histBody.innerHTML="";state.hist.slice(-10).reverse().forEach(h=>{
-  let c=`<span class="dot ${h.c.toLowerCase()}"></span> ${h.c}`;
-  let tr=document.createElement("tr");
-  tr.innerHTML=`<td>${h.id}</td><td>${c}</td><td>${h.n}</td><td>${h.bs}</td><td class="${h.pl>=0?'good':'bad'}">${h.pl>=0?'+':''}${h.pl}</td>`;
-  histBody.appendChild(tr);
-})}
-function genBetNo(){
-  let d=new Date();
-  let y=d.getFullYear();
-  let m=("0"+(d.getMonth()+1)).slice(-2);
-  let da=("0"+d.getDate()).slice(-2);
-  let h=("0"+d.getHours()).slice(-2);
-  let mi=("0"+d.getMinutes()).slice(-2);
-  let s=("0"+d.getSeconds()).slice(-2);
-  let ms=("00"+d.getMilliseconds()).slice(-3);
-  return `${y}${m}${da}${h}${mi}${s}${ms}`;
-}
+    // --- GAME LOGIC ---
+    function rng(max) {
+      let a = new Uint32Array(1);
+      crypto.getRandomValues(a);
+      return Math.floor(a[0] / 4294967296 * max);
+    }
 
-function newRound(){
-  state.round++;
-  state.end=Date.now()+state.len*1000;
-  state.bets=[];
-  let betNo=genBetNo();   // 🔥 नया Bet Number
-  roundEl.textContent=state.round+" (Bet# "+betNo+")";
-  statusEl.textContent="Betting...";
-}
+    function colorOf(n) {
+      if (n === 0 || n === 5) return "VIOLET";
+      return [1, 3, 7, 9].includes(n) ? "RED" : "GREEN";
+    }
 
-function settle(){
-  let n=rng(10),c=colorOf(n),bs=bsOf(n);
-  let res={n,c,bs};let win=0,stake=0;
-  state.bets.forEach(b=>{stake+=b.amt;win+=payout(b,res)});
-  state.bal+=win;balanceEl.textContent=state.bal;
-  let pnl=win;state.hist.push({id:state.round,c,n,bs,pl:pnl});
-  renderHist();
-  if(win>0){statusEl.textContent="You WON +"+pnl;winSound.play()}else if(stake>0){statusEl.textContent="You LOST";loseSound.play()}else{statusEl.textContent="No Bet"}
-}
-setInterval(()=>{let left=Math.max(0,Math.floor((state.end-Date.now())/1000));timeEl.textContent=left+"s";if(left===0){settle();newRound();tickSound.play()}},500);
-newRound();
-// selections
-let sel=null;
-$$(".cbtn").forEach(b=>b.onclick=()=>{sel={type:"COLOR",pick:b.dataset.color};$$(".num").forEach(n=>n.classList.remove("active"));$$(".option").forEach(o=>o.classList.remove("active"))});
-for(let i=0;i<10;i++){let b=document.createElement("button");b.className="num";b.textContent=i;b.onclick=()=>{sel={type:"NUM",pick:i};$$(".num").forEach(n=>n.classList.remove("active"));b.classList.add("active");$$(".option").forEach(o=>o.classList.remove("active"))};$("#numGrid").appendChild(b)}
-$$(".option").forEach(o=>o.onclick=()=>{sel={type:"BS",pick:o.dataset.bs};$$(".option").forEach(x=>x.classList.remove("active"));o.classList.add("active");$$(".num").forEach(n=>n.classList.remove("active"))});
-$("#placeBet").onclick=()=>{let amt=+$("#betAmt").value||0;if(!sel||amt<=0)return;if(state.bal<amt){alert("No balance");return}state.bal-=amt;balanceEl.textContent=state.bal;state.bets.push({...sel,amt});statusEl.textContent="Bet Placed: "+sel.pick+" ("+amt+")"};
-</script>
+    function bsOf(n) {
+      return n >= 5 ? "BIG" : "SMALL";
+    }
+
+    function payout(bet, result) {
+      if (bet.type === "COLOR" && bet.pick === result.c) return bet.amt * (bet.pick === "VIOLET" ? 4 : 2);
+      if (bet.type === "NUM" && +bet.pick === result.n) return bet.amt * 9;
+      if (bet.type === "BS" && bet.pick === result.bs) return bet.amt * 2;
+      return 0;
+    }
+
+    function renderHistory() {
+      histBody.innerHTML = "";
+      state.hist.slice(-10).reverse().forEach(h => {
+        let colorHtml = `<span class="dot ${h.c.toLowerCase()}"></span> ${h.c}`;
+        let tr = document.createElement("tr");
+        let pnlClass = h.pl >= 0 ? 'good' : 'bad';
+        let pnlSign = h.pl >= 0 ? '+' : '';
+        tr.innerHTML = `<td>${h.id}</td><td>${colorHtml}</td><td>${h.n}</td><td>${h.bs}</td><td class="${pnlClass}">${pnlSign}${h.pl}</td>`;
+        histBody.appendChild(tr);
+      });
+    }
+
+    function generateBetNumber() {
+      return new Date().toISOString().replace(/[-:T.Z]/g, "");
+    }
+
+    function newRound() {
+      state.round++;
+      state.end = Date.now() + state.len * 1000;
+      state.bets = [];
+      let betNo = generateBetNumber(); // 🔥 नया Bet Number
+      roundEl.textContent = `${state.round} (Bet# ${betNo})`;
+      statusEl.textContent = "Betting...";
+      updateActiveSelection(null);
+    }
+
+    function settleRound() {
+      let n = rng(10);
+      let c = colorOf(n);
+      let bs = bsOf(n);
+      let result = { n, c, bs };
+      
+      let totalWin = 0;
+      let totalStake = 0;
+
+      state.bets.forEach(bet => {
+        totalStake += bet.amt;
+        totalWin += payout(bet, result);
+      });
+
+      state.bal += totalWin;
+      balanceEl.textContent = state.bal;
+      state.hist.push({ id: state.round, c, n, bs, pl: totalWin - totalStake });
+      renderHistory();
+
+      if (totalWin > 0) {
+        statusEl.textContent = `You WON +${totalWin - totalStake}`;
+        winSound.play();
+      } else if (totalStake > 0) {
+        statusEl.textContent = "You LOST";
+        loseSound.play();
+      } else {
+        statusEl.textContent = "No Bet";
+      }
+    }
+
+    // --- UI & EVENT HANDLERS ---
+    function updateActiveSelection(clickedElement) {
+      // Remove active from all selectable items first
+      $$(".num.active, .option.active").forEach(el => el.classList.remove("active"));
+      // Add active class to the clicked element if it's a num or option
+      if (clickedElement && (clickedElement.classList.contains('num') || clickedElement.classList.contains('option'))) {
+        clickedElement.classList.add("active");
+      }
+    }
+
+    function initialize() {
+      // Color selections
+      $$(".cbtn").forEach(b => b.addEventListener('click', () => {
+        currentSelection = { type: "COLOR", pick: b.dataset.color };
+        updateActiveSelection(null);
+      }));
+
+      // Number selections
+      for (let i = 0; i < 10; i++) {
+        let b = document.createElement("button");
+        b.className = "num";
+        b.textContent = i;
+        b.addEventListener('click', () => {
+          currentSelection = { type: "NUM", pick: i };
+          updateActiveSelection(b);
+        });
+        numGrid.appendChild(b);
+      }
+
+      // Big/Small selections
+      $$(".option.big-small").forEach(o => o.addEventListener('click', () => {
+        currentSelection = { type: "BS", pick: o.dataset.bs };
+        updateActiveSelection(o);
+      }));
+
+      // Place Bet button
+      placeBetBtn.addEventListener('click', () => {
+        let amt = +betAmtInput.value || 0;
+        if (!currentSelection || amt <= 0) {
+          alert("Please select a bet type and enter a valid amount.");
+          return;
+        }
+        if (state.bal < amt) {
+          alert("Insufficient balance.");
+          return;
+        }
+        state.bal -= amt;
+        balanceEl.textContent = state.bal;
+        state.bets.push({ ...currentSelection, amt });
+        statusEl.textContent = `Bet Placed: ${currentSelection.pick} (${amt})`;
+        currentSelection = null;
+        updateActiveSelection(null);
+      });
+
+      // Game Loop
+      setInterval(() => {
+        let left = Math.max(0, Math.floor((state.end - Date.now()) / 1000));
+        timeEl.textContent = left + "s";
+        if (left === 0) {
+          settleRound();
+          newRound();
+          tickSound.play();
+        }
+      }, 500);
+
+      newRound();
+    }
+
+    initialize();
+  </script>
 </body>
+
 </html>
